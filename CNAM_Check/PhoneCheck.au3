@@ -43,7 +43,7 @@ For $i=-$span To $span Step 1
 		If StringInStr($sData,"Throttle limit exceeded") Then
 			ConsoleWriteX('Throttle limit exceeded - Waiting a bit before continuing...'&@CRLF)
 			$i-=1
-			Sleep(10000)
+			Sleep(5*60*1000);5min
 		Else
 			ConsoleWriteX($pn&' = '&$sData&@CRLF)
 		EndIf
