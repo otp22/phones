@@ -60,15 +60,8 @@ Func _WinHTTP_Startup()
 			Return _WinHTTP_Shutdown()
 		EndIf
 	EndIf
-	;If Not IsObj($_WinHTTP_oAdodb) Then
-	;	$_WinHTTP_Stage='Create ADODB'
-	;	$_WinHTTP_oAdodb = ObjCreate("ADODB.Stream")
-	;	If @error Then
-	;		MsgBox(0,'WinHTTP Error', 'There was an error initializing the ADODB.Stream object. ')
-	;		$_WinHTTP_Stage=''
-	;		Return _WinHTTP_Shutdown()
-	;	EndIf
-	;EndIf
+
+
 	$_WinHTTP_Stage=''
 	$_WinHTTP_Error=0
 EndFunc
@@ -116,24 +109,7 @@ Func _WinHTTP_Request($method='GET',$URL='http://www.example.com/',$Content='',$
 
 	Local $data=BinaryToString($_WinHTTP_oRequest.ResponseBody)
 	If StringLen($File) Then FileWrite($File,$data)
-#cs
-	$_WinHTTP_Stage='ADODB.Type=1'
-	$_WinHTTP_oAdodb.Type=1
-	If _WinHTTP_GetError() Then Return ''
-	$_WinHTTP_Stage='ADODB.Open'
-	$_WinHTTP_oAdodb.Open
-	If _WinHTTP_GetError() Then Return ''
-	$_WinHTTP_Stage='ADODB.Write($_WinHTTP_oRequest.ResponseBody)'
-	$_WinHTTP_oAdodb.Write($_WinHTTP_oRequest.ResponseBody)
-	If _WinHTTP_GetError() Then Return ''
-	$_WinHTTP_Stage='ADODB.SaveToFile('&$File&', 2)'
-	$_WinHTTP_oAdodb.SaveToFile($File, 2)
-	If _WinHTTP_GetError() Then Return ''
-	$_WinHTTP_Stage='ADODB.Close'
-	$_WinHTTP_oAdodb.Close
-	If _WinHTTP_GetError() Then Return ''
-	Local $data=FileReadFull($File)
-#ce
+
 
 
 	If $bDelete Then
@@ -179,24 +155,7 @@ Func _WinHTTP_RequestAll($method='GET',$URL='http://www.example.com/',$Content='
 
 	Local $data=BinaryToString($_WinHTTP_oRequest.ResponseBody)
 	If StringLen($File) Then FileWrite($File,$data)
-	#cs
-	$_WinHTTP_Stage='ADODB.Type=1'
-	$_WinHTTP_oAdodb.Type=1
-	If _WinHTTP_GetError() Then Return ''
-	$_WinHTTP_Stage='ADODB.Open'
-	$_WinHTTP_oAdodb.Open
-	If _WinHTTP_GetError() Then Return ''
-	$_WinHTTP_Stage='ADODB.Write($_WinHTTP_oRequest.ResponseBody)'
-	$_WinHTTP_oAdodb.Write($_WinHTTP_oRequest.ResponseBody)
-	If _WinHTTP_GetError() Then Return ''
-	$_WinHTTP_Stage='ADODB.SaveToFile('&$File&', 2)'
-	$_WinHTTP_oAdodb.SaveToFile($File, 2)
-	If _WinHTTP_GetError() Then Return ''
-	$_WinHTTP_Stage='ADODB.Close'
-	$_WinHTTP_oAdodb.Close
-	If _WinHTTP_GetError() Then Return ''
-	$aRet[1]=FileReadFull($File)
-	#ce
+
 
 
 
